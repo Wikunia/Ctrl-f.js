@@ -1,9 +1,16 @@
 $(function(){   
     var content_id = "content";
+    var content = '';
     
     $("#search_val").keydown(function(event){
 		// on Enter
         if(event.keyCode == 13){
+            // reset content 
+            if(content != '') {
+                $("#"+content_id).html(content);
+            } else {
+               content = $("#"+content_id).html(); 
+            }
 			intern_search($("#search_val").val());
 		}
 	})
@@ -24,9 +31,9 @@ $(function(){
             var regex = value_words[0]+'(?=[^>]*?<)';
             for (var i = 1; i < nr_words; i++) {
                // there can be a space and a whole html tag between two parts 
-               regex += '(?: ?)(?:(<.*?>)?)(?: ?)'+value_words[i]+'(?=[^>]*?<)';     
+               regex += '(?: ?)(?:<[^>]*?>)?(?: ?)'+value_words[i]+'(?=[^>]*?<)';     
             }
-            var regex = new RegExp(regex,'g');
+            var regex = new RegExp(regex,'gi');
         }
         
         var matches = null;
