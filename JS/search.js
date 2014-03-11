@@ -25,13 +25,13 @@ $(function(){
         // check if value is inside a html tag or not
         // if the first angle bracket is a '<' the value is outside of a html tag
         if (nr_words === 1) {
-            var regex = new RegExp(value+'(?=[^>]*?<)','g');
+            var regex = new RegExp(value+'(?=[^>]*?(<|$))','gi');
         } else {
             // there can be a html tag between two words
-            var regex = value_words[0]+'(?=[^>]*?<)';
+            var regex = value_words[0]+'(?=[^>]*?(<|$))';
             for (var i = 1; i < nr_words; i++) {
                // there can be a space and a whole html tag between two parts 
-               regex += '(?: ?)(?:<[^>]*?>)?(?: ?)'+value_words[i]+'(?=[^>]*?<)';     
+               regex += '(?: ?)(?:<[^>]*?>)?(?: ?)'+value_words[i]+'(?=[^>]*?(<|$))';     
             }
             var regex = new RegExp(regex,'gi');
         }
